@@ -1,0 +1,32 @@
+{
+  "mode": "All",
+  "policyRule": {
+    "if": {
+      "allOf": [
+        {
+          "field": "[concat('tags[', parameters('tagName'), ']')]",
+          "exists": "false"
+        }
+      ]
+    },
+    "then": {
+      "effect": "append",
+      "details": [
+        {
+          "field": "[concat('tags[', parameters('tagName'), ']')]",
+          "value": "[concat(substring(utcNow(),8,2), '/', substring(utcNow(),5,2), '/', substring(utcNow(),0,4))]"
+        }
+      ]
+    }
+  },
+  "parameters": {
+    "tagName": {
+      "type": "String",
+      "metadata": {
+        "displayName": "Tag to date of creation",
+        "description": null
+      },
+      "defaultValue": "createdondate"
+    }
+  }
+}
